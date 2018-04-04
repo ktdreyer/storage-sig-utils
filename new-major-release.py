@@ -24,7 +24,7 @@ def get_tags(codename):
 
 
 def get_buildlogs_mapping(codename):
-    mapping = 'storage7-ceph-{codename}-testing|7/storage/x86_64/ceph-{codename}/|7/storage/x86_64/ceph-{codename}/|7/storage/x86_64/ceph-{codename}/'.format(codename=codename)
+    mapping = 'storage7-ceph-{codename}-testing|7/storage/x86_64/ceph-{codename}/|7/storage/x86_64/ceph-{codename}/|7/storage/x86_64/ceph-{codename}/'.format(codename=codename)  # NOQA: E501
     return mapping
 
 

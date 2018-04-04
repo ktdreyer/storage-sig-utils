@@ -14,12 +14,12 @@ def get_codename():
 
 
 def get_tags(codename):
-    tags = [
-        'storage7-ceph-%s-candidate' % codename,
-        'storage7-ceph-%s-el7-build' % codename,
-        'storage7-ceph-%s-release' % codename,
-        'storage7-ceph-%s-testing' % codename,
-    ]
+    tags = {
+        'candidate': 'storage7-ceph-%s-candidate' % codename,
+        'build':     'storage7-ceph-%s-el7-build' % codename,
+        'testing':   'storage7-ceph-%s-testing' % codename,
+        'release':   'storage7-ceph-%s-release' % codename,
+    }
     return tags
 
 

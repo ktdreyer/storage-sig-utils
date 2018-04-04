@@ -1,7 +1,19 @@
-Would you please create the following tags in CBS?
+Would you please create the following tags and target in CBS?
 
-{% for tag in tags %}{{ tag }}
-{% endfor %}
+Build target: {{ tags.build }}
+Buildroot tag: {{ tags.build }}
+Buildroot inheritance:
+{{ tags.build }}
+  ├─buildsys7
+  ├─{{ tags.candidate }}
+  ├─storage7-ceph-common-candidate
+  └─storage7-common-candidate
+
+Destination tag: {{ tags.candidate }}
+
+Publishing tags:
+{{ tags.testing }}
+{{ tags.release }}
 
 This is for the Ceph project of the Storage SIG.
 

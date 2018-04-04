@@ -12,6 +12,10 @@ def get_codename():
     return 'mimic'
 
 
+def get_target(codename):
+    return 'storage7-ceph-%s-el7' % codename
+
+
 def get_tags(codename):
     tags = {
         'candidate': 'storage7-ceph-%s-candidate' % codename,
@@ -36,6 +40,7 @@ if __name__ == '__main__':
     codename = get_codename()
     content = {
         'tags': get_tags(codename),
+        'target': get_target(codename),
         'buildlogs_mapping': get_buildlogs_mapping(codename),
         'name': get_name()
     }

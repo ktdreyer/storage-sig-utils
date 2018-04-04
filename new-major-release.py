@@ -1,6 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
-
-# TODO: use https://github.com/morenice/mantisconnect-python
+import mantis
 
 PATH = '.'
 FILENAME = 'new-major-release.j2'
@@ -43,4 +42,14 @@ if __name__ == '__main__':
 
     text = env.get_template(FILENAME).render(content)
 
-    print(text)
+    summary = 'set up CBS for Ceph %s' % codename
+    project = 'Buildsys'
+    category = 'community buildsys'
+    # Before filing this issue, search this summary title to see if we've
+    # already filed it.
+    issue = mantis.find_issue(summary)
+    if issue:
+        print('existing ticket https://bugs.centos.org/view.php?id=%d' % issue)
+        raise SystemExit()
+    issue = mantis.new_issue(summary, text, project, category)
+    print('created https://bugs.centos.org/view.php?id=%d' % issue)

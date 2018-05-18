@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -eux
+
+# Add a new package to CBS for a Ceph release.
+
+PACKAGE=python-notario
+
+OWNER=ktdreyer
+
+RELEASE=mimic
+
+cbs add-pkg --owner=${OWNER} storage7-ceph-${RELEASE}-candidate ${PACKAGE}
+cbs add-pkg --owner=${OWNER} storage7-ceph-${RELEASE}-testing ${PACKAGE}
+cbs add-pkg --owner=${OWNER} storage7-ceph-${RELEASE}-release ${PACKAGE}

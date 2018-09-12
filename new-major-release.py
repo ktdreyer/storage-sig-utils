@@ -9,7 +9,7 @@ env = Environment(loader=FileSystemLoader(PATH))
 
 def get_codename():
     """ Get the new ceph release """
-    return 'mimic'
+    return 'nautilus'
 
 
 def get_target(codename):

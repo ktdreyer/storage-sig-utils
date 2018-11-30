@@ -7,8 +7,8 @@ this in CentOS's system. Here are the steps to set that up.
 Configuring CBS
 ---------------
 
-The first step is to open a ticket with the CentOS CBS administrators. The
-admins will configure three things for us:
+The first step is to open a `ticket <https://bugs.centos.org/>`_ with the
+CentOS CBS administrators. The CBS admins will configure three things for us:
 
 1. Create our set of Koji tags (eg. ``-candidate``, ``-testing``, and
    ``-release``).

@@ -20,8 +20,8 @@ CentOS CBS administrators. The CBS admins will configure three things for us:
    repository "downloads" `site <https://buildlogs.centos.org/centos/7/>`_ for
    the builds.
    
-Here is the ticket: https://bugs.centos.org/view.php?id=15269 (A script can
-file this automatically, https://github.com/ktdreyer/storage-sig-utils)
+Here is the nautilus ticket: https://bugs.centos.org/view.php?id=15269 (`A
+script <new-major-release.py>` can file these automatically.)
 
 Creating centos-release-ceph-nautilus package
 ---------------------------------------------

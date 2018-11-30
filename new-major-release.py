@@ -28,6 +28,7 @@ def get_tags(codename):
 
 def get_buildlogs_mapping(codename):
     # see https://wiki.centos.org/SIGGuide/Content/BuildLogs
+    # <tag>|<destination path>|<dir to run createrepo in>|<destination on buildlogs>
     mapping = 'storage7-ceph-{codename}-testing|7/storage/x86_64/ceph-{codename}/|7/storage/x86_64/ceph-{codename}/|7/storage/x86_64/ceph-{codename}/'.format(codename=codename)  # NOQA: E501
     return mapping
 

@@ -4,6 +4,12 @@ Setting up a new Ceph release
 The next release of Ceph is codenamed "nautilus". We want to build and host
 this in CentOS's system. Here are the steps to set that up.
 
+Installing CBS client
+---------------------
+
+Please install the CBS client (CLI) on your system. You will need it to build
+new RPMs and manage builds. Instructions at https://wiki.centos.org/SIGGuide
+
 Configuring CBS
 ---------------
 

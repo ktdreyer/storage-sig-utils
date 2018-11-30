@@ -1,8 +1,8 @@
 Setting up a new Ceph release
 =============================
 
-The next release of Ceph is codenamed "nautilus". Here are the steps to set
-that up within CentOS's system.
+The next release of Ceph is codenamed "nautilus". We want to build and host
+this in CentOS's system. Here are the steps to set that up.
 
 Configuring CBS
 ---------------

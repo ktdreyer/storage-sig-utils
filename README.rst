@@ -1,11 +1,12 @@
 Utilities for managing Ceph within the `CentOS Storage SIG
 <https://wiki.centos.org/SpecialInterestGroup/Storage>`_
 
+Contents:
 
-* ``new-major-release.py`` - Open a bugs.centos.org ticket to introduce a new
-  major Ceph release.
+* Documentation on `setting up a new major Ceph release
+  <new-major-release.rst>`_.
 
-  Note: we also have to create a "release" package like this:
-  https://github.com/CentOS-Storage-SIG/centos-release-ceph-luminous
+* `new-major-release.py <new-major-release.py>`_ - Automatically open a
+  bugs.centos.org ticket to introduce a new major Ceph release.
 
-* ``add-package`` - Configure CBS to handle a new package
+* `add-package <add-package>`_ - Configure CBS to handle a new package.

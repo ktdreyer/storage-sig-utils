@@ -95,7 +95,7 @@ CentOS' mirror system for CentOS Extras. All CentOS users can "yum install" our
 build from CentOS Extras now::
 
     # Already done on most CentOS systems:
-    yum-config-manager --enable extras
+    # yum-config-manager --enable extras
 
     # Install our newly-released build: 
     yum install centos-release-ceph-nautilus

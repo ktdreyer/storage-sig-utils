@@ -48,9 +48,10 @@ Once you have the GitHub repository location:
     git checkout nautilus
 
 2. Copy the `centos-release-ceph-luminous
-<https://github.com/CentOS-Storage-SIG/centos-release-ceph-luminous>`_ release
-package, and globally search-and-replace "luminous" to "nautilus". Note the
-``.repo`` file is named "Luminous", so rename this to "Nautilus", etc.
+   <https://github.com/CentOS-Storage-SIG/centos-release-ceph-luminous>`_
+   release package, and globally search-and-replace "luminous" to "nautilus".
+   Note the ``.repo`` file is named "Luminous", so rename this to "Nautilus",
+   etc.
 
 3. Create the SRPM (see the instructions in the README)::
 

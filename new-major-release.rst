@@ -56,6 +56,12 @@ package, and globally search-and-replace "luminous" to "nautilus". Note the
 
 At this point you will have your first build in CBS.
 
+Clarifying note: Our first build here is going into *CentOS Extras*, not into
+our Storage SIG/ceph nautilus repo. The ``-release`` package is the only one
+like this. It simply bootstraps the user's
+``/etc/yum.repos.d/CentOS-Ceph-Nautilus.repo`` file so they can obtain the rest
+of the Ceph packages.
+
 Moving builds through -testing and -release
 -------------------------------------------
 

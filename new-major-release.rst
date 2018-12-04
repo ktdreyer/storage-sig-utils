@@ -61,7 +61,7 @@ package, and globally search-and-replace "luminous" to "nautilus". Note the
     cbs build ...
 
 5. Push your `changes
-<https://github.com/CentOS-Storage-SIG/centos-release-ceph/commit/2d27abb289727eaa98927805f9c2759ef974a0cb>`_
+   <https://github.com/CentOS-Storage-SIG/centos-release-ceph/commit/2d27abb289727eaa98927805f9c2759ef974a0cb>`_
   to the ``nautilus`` branch in GitHub. This ensures we have a record of the
   code in Git for future modifications.
 

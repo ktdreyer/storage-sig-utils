@@ -100,5 +100,5 @@ build from CentOS Extras now::
     # Install our newly-released build: 
     yum install centos-release-ceph-nautilus
 
-Now these users will have an ``/etc/yum.repos.d/CentOS-Ceph-Nautlius.repo`` on
+Now these users will have an ``/etc/yum.repos.d/CentOS-Ceph-Nautilus.repo`` on
 their systems. This will point at the rest of our Ceph packages.

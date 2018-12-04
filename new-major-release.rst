@@ -130,3 +130,105 @@ build from CentOS Extras now::
 Now these users will have an ``/etc/yum.repos.d/CentOS-Ceph-Nautilus.repo`` on
 their systems. This will point at the rest of our Ceph packages. These users
 will be able to ``yum install ceph`` and get the nautilus package.
+
+Copying the package list from the older release
+-----------------------------------------------
+
+At this point we have a ``storage7-ceph-nautilus-candidate`` tag that is
+completely empty::
+
+    cbs list-tagged storage7-ceph-nautilus-candidate
+
+    Build                                 Tag               Built by
+    ------------------------------------  ----------------  ----------------
+
+We need to populate this tag.
+
+First, let's find the list of **packages** that are present in the tag for our
+older release (luminous)::
+
+    cbs list-pkgs --tag=storage7-ceph-luminous-candidate
+    Package             Tag                     Extra Arches    Owner
+    ------------------- ----------------------- --------------- ---------------
+    oniguruma           storage7-ceph-luminous-candidate        alphacc
+    python-logutils     storage7-ceph-luminous-candidate        gfidente
+    ...
+
+Visually inspect this list of source package names.
+
+Note anything that is end-of-life/unsupported. You don't want to carry ancient
+unsupported packages over into the next major release. For example,
+``radosgw-agent`` is really old and should not be carried along into nautilus.
+
+Once you have copied and edited your list of packages for nautilus, run those
+through ``cbs add-pkg`` so we are able to tag the builds::
+
+    cbs add-pkg --owner ktdreyer storage7-ceph-nautilus-candidate ceph-ansible jq ...
+    cbs add-pkg --owner ktdreyer storage7-ceph-nautilus-testing ceph-ansible jq ...
+    cbs add-pkg --owner ktdreyer storage7-ceph-nautilus-release ceph-ansible jq ...
+
+At this point you've set the package lists for your tags. Check them with
+``cbs list-pkgs``, like so::
+
+    cbs list-pkgs --tag=storage7-ceph-luminous-candidate
+    cbs list-pkgs --tag=storage7-ceph-luminous-testing
+    cbs list-pkgs --tag=storage7-ceph-luminous-release
+
+Copying the build list from the older release
+---------------------------------------------
+
+Now that we've configured our package lists, we can tag some builds.
+
+Let's find the list of **builds** that are currently tagged for the older
+release (luminous)::
+
+    cbs list-tagged storage7-ceph-luminous-candidate --latest
+    Build                             Tag               Built by
+    --------------------------------  ----------------  ----------------
+    babeltrace-1.2.4-3.1.el7          storage7-ceph-luminous-candidate  koji
+    ceph-12.2.5-0.el7                 storage7-ceph-luminous-candidate  gfidente
+    ceph-ansible-3.2.0-0.rc8.1.el7    storage7-ceph-luminous-candidate  ktdreyer
+    ...
+
+Visually inspect this list of build NVRs (*name* - *version* - *release*).
+
+As above when we were checking ``list-pkgs``, make a note to drop anything that
+is end-of-life/unsupported.
+
+*Also*, we also don't want to copy the ``ceph-12.2.5-0.el7`` build into
+nautilus either. Remember, this set of tags is just for ``ceph-14.0.0`` and
+newer.
+
+Once you have assembled your list of build NVRs to tag from luminous into
+nautilus, you can tag these into ``storage7-ceph-nautilus-candidate``::
+
+   cbs tag-build storage7-ceph-nautilus-candidate babeltrace-1.2.4-3.1.el7 ceph-ansible-3.2.0-0.rc8.1.el7 ...
+
+CBS will run a number of `tagBuild
+<http://cbs.centos.org/koji/tasks?method=tagBuild&state=active&view=tree&order=-id>`_
+tasks, one per build, as it adds each build into our ``-nautilus-candidate``
+tag.
+
+Once those ``tagBuild`` tasks finish, you should be able to see all your newly-tagged builds with ``list-tagged``::
+
+    cbs list-tagged storage7-ceph-nautilus-candidate
+
+Buildroots and kojira
+---------------------
+
+As we begin to populate our ``-nautilus-candidate`` tag, you will notice a
+`kojira <http://cbs.centos.org/koji/tasks?owner=kojira&state=all>`_ user will
+begin to generate a set of new repositories for us with ``newRepo`` and
+``createrepo`` tasks. kojira will regenerate our **buildroots** every time the
+``storage7-ceph-nautilus-el7-build`` tag or its children change. A "buildroot"
+is a Yum repository within Koji that defines which RPMs are available when we
+build any new packages.
+
+You can inspect these buildroot repositories at
+http://cbs.centos.org/kojifiles/repos/storage7-ceph-nautilus-el7-build/latest/x86_64/
+. The ``pkglist`` file is handy to get a birds-eye view of what RPMs are in
+that particular buildroot (yum repo).
+
+Once we see that CBS's kojira has generated a buildroot for our
+``storage7-ceph-nautilus-el7-build`` tag, we are ready to build Ceph itself in
+CBS.

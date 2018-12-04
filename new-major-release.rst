@@ -41,18 +41,29 @@ to create the new repository in GitHub for this package.
 
 Once you have the GitHub repository location:
 
-1. Copy the `centos-release-ceph-luminous
+1. Clone the repository::
+
+    git clone git@github.com:CentOS-Storage-SIG/centos-release-ceph.git
+    cd centos-release-ceph
+    git checkout nautilus
+
+2. Copy the `centos-release-ceph-luminous
 <https://github.com/CentOS-Storage-SIG/centos-release-ceph-luminous>`_ release
 package, and globally search-and-replace "luminous" to "nautilus". Note the
 ``.repo`` file is named "Luminous", so rename this to "Nautilus", etc.
 
-2. Create the SRPM (see the instructions in the README)::
+3. Create the SRPM (see the instructions in the README)::
 
     rpmbuild -bs ...
 
-3. Build the SRPM with CBS (see instructions in the README)::
+4. Build the SRPM with CBS (see instructions in the README)::
 
     cbs build ...
+
+5. Push your `changes
+<https://github.com/CentOS-Storage-SIG/centos-release-ceph/commit/2d27abb289727eaa98927805f9c2759ef974a0cb>`_
+  to the ``nautilus`` branch in GitHub. This ensures we have a record of the
+  code in Git for future modifications.
 
 At this point you will have your first build in CBS.
 

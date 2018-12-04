@@ -57,11 +57,18 @@ Once you have the GitHub repository location:
 
     rpmbuild -bs ...
 
-4. Build the SRPM with CBS (see instructions in the README)::
+4. Ensure the package is whitelisted ("added") to the three CentOS Extras
+   tags::
+
+    cbs add-pkg --owner ktdreyer core7-extras-common-candidate centos-release-ceph-nautilus
+    cbs add-pkg --owner ktdreyer core7-extras-common-testing centos-release-ceph-nautilus
+    cbs add-pkg --owner ktdreyer core7-extras-common-release centos-release-ceph-nautilus
+
+5. Build the SRPM with CBS (see instructions in the README)::
 
     cbs build ...
 
-5. Push your `changes
+6. Push your `changes
    <https://github.com/CentOS-Storage-SIG/centos-release-ceph/commit/2d27abb289727eaa98927805f9c2759ef974a0cb>`_
    to the ``nautilus`` branch in GitHub. This ensures we have a record of the
    code in Git for future modifications.

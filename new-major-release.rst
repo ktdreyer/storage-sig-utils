@@ -235,3 +235,17 @@ that particular buildroot (yum repo).
 Once we see that CBS's kojira has generated a buildroot for our
 ``storage7-ceph-nautilus-el7-build`` tag, we are ready to build Ceph itself in
 CBS.
+
+Testing builds in buildlogs.centos.org
+--------------------------------------
+
+Once we have tagged our nautilus builds into
+``storage7-ceph-nautilus-testing``, we notify the CBS administrators to
+configure buildlogs.centos.org to host the new builds. You can do this in the
+same http://bugs.centos.org ticket from above.
+
+The CBS administrators run `mash <https://pagure.io/mash>`_ in a `cron script
+<https://git.centos.org/blob/sig-core!cbs-tools.git/master/scripts!mash_run.sh>`_
+every two hours. Once they have configured buildlogs.centos.org for this
+release, the builds tagged in ``-nautilus-testing`` should show up `there
+<https://buildlogs.centos.org/centos/7/storage/x86_64/ceph-nautilus>`_.

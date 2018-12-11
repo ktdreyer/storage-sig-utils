@@ -98,10 +98,13 @@ To move this build into the "testing" repository, we will tag it into the
 
 Once the build is in ``core7-extras-common-testing``, the CBS administrators
 will put it into the "testing" repository at
-https://buildlogs.centos.org/centos/7/extras/x86_64/ . A cron job runs every
-two hours to push builds to the testing repository. If you do not see the build
-on the buildlogs.centos.org web server two hours after tagging in CBS, contact
-the admins in #centos-devel.
+https://buildlogs.centos.org/centos/7/extras/x86_64/ .
+
+The CBS administrators run `mash <https://pagure.io/mash>`_ in a `cron script
+<https://git.centos.org/blob/sig-core!cbs-tools.git/master/scripts!mash_run.sh>`_
+every two hours to push builds to the testing repository. If you do not see
+the build on the buildlogs.centos.org web server two hours after tagging in
+-testing in CBS, contact the admins in #centos-devel.
 
 To move this build into the "release" repository, we will tag it into the
 ``-release`` CBS tag::

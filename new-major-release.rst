@@ -34,14 +34,7 @@ Creating centos-release-ceph-nautilus package
 
 For each major Ceph release, we must create a "-release" package.
 
-This process is `in flux
-<https://lists.centos.org/pipermail/centos-devel/2018-November/017093.html>`_,
-but basically we will need to coordinate with Niels de Vos <ndevos@redhat.com>
-to create the new repository in GitHub for this package.
-
-Once you have the GitHub repository location:
-
-1. Clone the repository::
+1. Clone the repository from GitHub::
 
     git clone git@github.com:CentOS-Storage-SIG/centos-release-ceph.git
     cd centos-release-ceph

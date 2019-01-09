@@ -10,3 +10,6 @@ Contents:
   bugs.centos.org ticket to introduce a new major Ceph release.
 
 * `add-package <add-package>`_ - Configure CBS to handle a new package.
+
+* `promote-build <bin/promote-build>`_ - Promote a build from ``-candidate``
+  to ``-testing`` to ``-release``.

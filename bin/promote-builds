@@ -1,0 +1,121 @@
+#!/usr/bin/python3
+import re
+import os
+import argparse
+import koji
+from koji_cli.lib import activate_session
+from koji_cli.lib import watch_tasks
+
+DESCRIPTION = """
+Promote a CBS build from -candidate, to -testing, to -release.
+"""
+
+KOJI_PROFILE = 'cbs'
+
+
+class NoBuildFoundError(Exception):
+    """ This build NVR is not present in CBS. """
+    pass
+
+
+class NoTagsError(Exception):
+    """ This build NVR cannot be promoted to any more tags in CBS. """
+    pass
+
+
+class TaggingError(Exception):
+    """ We failed to tag a build in CBS. """
+    pass
+
+
+def get_session():
+    """
+    Return an authenticated Koji client session for KOJI_PROFILE.
+    :returns: activated koji.ClientSession
+    """
+    mykoji = koji.get_profile_module(KOJI_PROFILE)
+    # Workaround https://pagure.io/koji/issue/1022 . Koji 1.17 will not need
+    # this.
+    if '~' in str(mykoji.config.cert):
+        mykoji.config.cert = os.path.expanduser(mykoji.config.cert)
+    if '~' in str(mykoji.config.ca):
+        mykoji.config.ca = os.path.expanduser(mykoji.config.ca)
+    opts = mykoji.grab_session_options(mykoji.config)
+    session = mykoji.ClientSession(mykoji.config.server, opts)
+    opts = vars(mykoji.config)
+    activate_session(session, opts)
+    return session
+
+
+def tag_build(nvr, tag, session):
+    """ Tag this build NVR into this CBS tag. """
+    task_id = session.tagBuild(nvr, tag)
+    return task_id
+
+
+def find_current_tags(nvr, session):
+    """ Find the current tags for this build NVR. """
+    taginfos = session.listTags(nvr)
+    tag_names = [taginfo['name'] for taginfo in taginfos]
+    return tag_names
+
+
+def find_next_tags(nvr, current_tags, session):
+    """
+    Find the next tags in order to promote this build.
+
+    If it's tagged into -candidate, but not -testing, then return -testing.
+    If it's tagged into -testing, but not -release, then return -release.
+
+    For now this simply goes from one to the next without taking the Ceph
+    releases into account.
+    """
+    next_tags = set()
+    for tag in current_tags:
+        next_tag = None
+        if tag.startswith('-candidate'):
+            next_tag = re.sub('-candidate$', '-testing$')
+        if tag.startswith('-testing'):
+            next_tag = re.sub('-testing$', '-release$')
+        if next_tag and next_tag not in current_tags:
+            next_tags.add(next_tag)
+    return next_tags
+
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dry-run', action='store_true',
+                        help="show what would happen, but don't do it")
+    parser.add_argument('build', help='build to promote')
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    nvr = args.build
+    session = get_session()
+    # Verify that this build exists.
+    buildinfo = session.getBuild(nvr)
+    if not buildinfo:
+        raise NoBuildFoundError(nvr)
+    # Find the next tags to which we should promote this build.
+    current_tags = find_current_tags(nvr, session)
+    next_tags = find_next_tags(nvr, current_tags, session)
+    if not next_tags:
+        print('%s is already tagged in:' % nvr)
+        for tag in sorted(current_tags):
+            print(' - %s' % tag)
+        raise NoTagsError(nvr)
+    if args.dryrun:
+        print('would %s tag into: %s' % (nvr, ' '.join(next_tags)))
+    task_ids = set()
+    for tag in next_tags:
+        task_id = tag_build(nvr, tag, session)
+        task_ids.add(task_id)
+    watch_result = watch_tasks(session, task_ids, poll_interval=15)
+    if watch_result != 0:
+        raise TaggingError(watch_result)
+
+
+if __name__ == '__main__':
+    main()

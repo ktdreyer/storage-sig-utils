@@ -27,7 +27,7 @@ CentOS CBS administrators. The CBS admins will configure three things for us:
    the builds.
    
 Here is the nautilus ticket: https://bugs.centos.org/view.php?id=15269 (`A
-script <new-major-release.py>`_ can file these automatically.)
+script <bin/new-major-release>`_ can file these automatically.)
 
 Creating centos-release-ceph-nautilus package
 ---------------------------------------------

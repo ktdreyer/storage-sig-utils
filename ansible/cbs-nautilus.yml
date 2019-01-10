@@ -1,0 +1,38 @@
+- name: Configure CBS for Ceph Nautilus
+  hosts: localhost
+  gather_facts: false
+  vars:
+    cbs_tags:
+     - storage7-ceph-nautilus-candidate
+     - storage7-ceph-nautilus-testing
+     - storage7-ceph-nautilus-release
+    packages:
+      ktdreyer:
+        - babeltrace
+        - ceph
+        - ceph-ansible
+        - jq
+        - leveldb
+        - lttng-ust
+        - mock-ceph-config
+        - oniguruma
+        - python-logutils
+        - python-notario
+        - python-pecan
+        - python-prettytable
+        - python-simplegeneric
+        - python-singledispatch
+        - radosgw-agent
+        - rook
+        - userspace-rcu
+        - xmlstarlet
+        - yasm
+
+  tasks:
+  - name: Configure CBS tag
+    koji_tag:
+      name: "{{ item }}"
+      state: present
+      perm: build-storage
+      packages: "{{ packages }}"
+    with_items: "{{ cbs_tags }}"

@@ -3,6 +3,15 @@
 from jinja2 import Environment, FileSystemLoader
 import mantis
 
+# XXX: There is a problem here, in that the CentOS admins require at least
+# one build to be tagged into -testing in order to fully configure
+# buildlogs.centos.org, because the internal "sync" script does not publish
+# empty repositories for safety reasons. So there will be some back and forth
+# as the buildlogs.centos.org and mirror.centos.org configurations get set up.
+#
+# A better version of this script would verify the preconditions in CBS and
+# open three Mantis tickets according to where we are in the process.
+
 PATH = '.'
 FILENAME = 'new-major-release.j2'
 

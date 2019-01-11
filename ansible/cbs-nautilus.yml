@@ -32,7 +32,6 @@
   - name: Configure CBS tag
     koji_tag:
       name: "{{ item }}"
-      state: present
       perm: build-storage
       packages: "{{ packages }}"
     with_items: "{{ cbs_tags }}"

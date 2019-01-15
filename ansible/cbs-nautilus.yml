@@ -52,6 +52,15 @@
           priority: 20
         - parent: sclo7-devtoolset-7-rh-candidate
           priority: 25
+      external_repos:
+        - repo: centos7-cr
+          priority: 5
+        - repo: centos7-extras
+          priority: 10
+        - repo: centos7-updates
+          priority: 15
+        - repo: centos7-os
+          priority: 20
     when: is_admin
 
   - name: Configure CBS target

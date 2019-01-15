@@ -50,6 +50,7 @@
           priority: 15
         - parent: storage7-common-candidate
           priority: 20
+        # https://bugs.centos.org/view.php?id=15700
         - parent: sclo7-devtoolset-7-rh-candidate
           priority: 25
       external_repos:
@@ -67,6 +68,5 @@
     koji_target:
       name: storage7-ceph-nautilus-el7
       build_tag: storage7-ceph-nautilus-el7-build
-      # https://bugs.centos.org/view.php?id=15700
-      dest_tag: storage7-ceph-nautilus-release
+      dest_tag: storage7-ceph-nautilus-candidate
     when: is_admin

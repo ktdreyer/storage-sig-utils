@@ -23,7 +23,6 @@
         - python-prettytable
         - python-simplegeneric
         - python-singledispatch
-        - radosgw-agent
         - rook
         - userspace-rcu
         - xmlstarlet

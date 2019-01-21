@@ -12,6 +12,7 @@
         - babeltrace
         - ceph
         - ceph-ansible
+        - golang
         - jq
         - leveldb
         - lttng-ust

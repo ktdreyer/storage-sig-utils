@@ -15,8 +15,10 @@
         - golang
         - jq
         - leveldb
+        - libntirpc
         - lttng-ust
         - mock-ceph-config
+        - nfs-ganesha
         - oniguruma
         - python-logutils
         - python-notario

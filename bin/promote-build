@@ -47,9 +47,9 @@ def get_session():
     return session
 
 
-def tag_build(nvr, tag, session):
+def tag_build(tag, nvr, session):
     """ Tag this build NVR into this CBS tag. """
-    task_id = session.tagBuild(nvr, tag)
+    task_id = session.tagBuild(tag, nvr)
     return task_id
 
 
@@ -110,7 +110,7 @@ def main():
         print('would %s tag into: %s' % (nvr, ' '.join(next_tags)))
     task_ids = set()
     for tag in next_tags:
-        task_id = tag_build(nvr, tag, session)
+        task_id = tag_build(tag, nvr, session)
         task_ids.add(task_id)
     watch_result = watch_tasks(session, task_ids, poll_interval=15)
     if watch_result != 0:

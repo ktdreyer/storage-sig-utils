@@ -60,7 +60,7 @@ def find_current_tags(nvr, session):
     return tag_names
 
 
-def find_next_tags(nvr, current_tags, session):
+def find_next_tags(current_tags, session):
     """
     Find the next tags in order to promote this build.
 
@@ -100,7 +100,7 @@ def main():
         raise NoBuildFoundError(nvr)
     # Find the next tags to which we should promote this build.
     current_tags = find_current_tags(nvr, session)
-    next_tags = find_next_tags(nvr, current_tags, session)
+    next_tags = find_next_tags(current_tags, session)
     if not next_tags:
         print('%s is already tagged in:' % nvr)
         for tag in sorted(current_tags):

@@ -106,7 +106,7 @@ def main():
         for tag in sorted(current_tags):
             print(' - %s' % tag)
         raise NoTagsError(nvr)
-    if args.dryrun:
+    if args.dry_run:
         print('would %s tag into: %s' % (nvr, ' '.join(next_tags)))
     task_ids = set()
     for tag in next_tags:

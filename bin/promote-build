@@ -71,9 +71,13 @@ def find_next_tags(current_tags, session):
     For now this simply goes from one to the next without taking the order of
     Ceph releases into account.
     """
+    # Only handle the Storage SIG tags:
+    PREFIX = 'storage'
     # Build the mapping of releases and suffixes.
     releases = defaultdict(set)
     for tag in current_tags:
+        if not tag.startswith(PREFIX):
+            continue
         # ['storage7-ceph-jewel', 'candidate']
         release, suffix = tag.rsplit('-', 1)
         releases[release].add(suffix)

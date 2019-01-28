@@ -119,6 +119,7 @@ def main():
         raise NoTagsError(nvr)
     if args.dry_run:
         print('would %s tag into: %s' % (nvr, ' '.join(next_tags)))
+        raise SystemExit()
     task_ids = set()
     for tag in next_tags:
         task_id = tag_build(tag, nvr, session)

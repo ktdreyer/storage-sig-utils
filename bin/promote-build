@@ -118,7 +118,9 @@ def main():
             print(' - %s' % tag)
         raise NoTagsError(nvr)
     if args.dry_run:
-        print('would %s tag into: %s' % (nvr, ' '.join(next_tags)))
+        print('would %s tag into:' % nvr)
+        for tag in sorted(next_tags):
+            print(' - %s' % tag)
         raise SystemExit()
     task_ids = set()
     for tag in next_tags:

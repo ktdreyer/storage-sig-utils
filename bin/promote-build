@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from collections import defaultdict
 import re
 import os
 import argparse
@@ -67,18 +68,28 @@ def find_next_tags(current_tags, session):
     If it's tagged into -candidate, but not -testing, then return -testing.
     If it's tagged into -testing, but not -release, then return -release.
 
-    For now this simply goes from one to the next without taking the Ceph
-    releases into account.
+    For now this simply goes from one to the next without taking the order of
+    Ceph releases into account.
     """
-    next_tags = set()
+    # Build the mapping of releases and suffixes.
+    releases = defaultdict(set)
     for tag in current_tags:
-        next_tag = None
-        if tag.startswith('-candidate'):
-            next_tag = re.sub('-candidate$', '-testing$')
-        if tag.startswith('-testing'):
-            next_tag = re.sub('-testing$', '-release$')
-        if next_tag and next_tag not in current_tags:
-            next_tags.add(next_tag)
+        # ['storage7-ceph-jewel', 'candidate']
+        release, suffix = tag.rsplit('-', 1)
+        releases[release].add(suffix)
+
+    # Build the set of next tags.
+    next_tags = set()
+    # TODO: take the order of Ceph releases into account. Eg. we should not
+    # tag to "-nautilus-release" until the build is in "-luminous-release".
+    for release, suffixes in releases.items():
+        if 'release' in suffixes:
+            continue
+        elif 'testing' in suffixes:
+            next_tag = '%s-%s' % (release, 'release')
+        elif 'candidate' in suffixes:
+            next_tag = '%s-%s' % (release, 'testing')
+        next_tags.add(next_tag)
     return next_tags
 
 

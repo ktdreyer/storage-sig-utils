@@ -1,0 +1,23 @@
+---
+- name: Configure CBS main tags
+  koji_tag:
+    name: "{{ item }}"
+    perm: build-storage
+    packages: "{{ packages }}"
+  with_items:
+  - "{{ cbs_candidate_tag }}"
+  - "{{ cbs_testing_tag }}"
+  - "{{ cbs_release_tag }}"
+
+- name: Configure CBS build tag
+  koji_tag:
+    name: "{{ cbs_build_tag }}"
+    arches: x86_64 aarch64 ppc64le
+    inheritance: "{{ build_inheritance }}"
+    external_repos: "{{ external_repos }}"
+
+- name: Configure CBS build target
+  koji_target:
+    name: "{{ cbs_build_target }}"
+    build_tag: "{{ cbs_build_tag }}"
+    dest_tag: "{{ cbs_candidate_tag }}"

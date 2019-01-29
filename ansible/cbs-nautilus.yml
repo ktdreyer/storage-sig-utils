@@ -2,72 +2,55 @@
   hosts: localhost
   gather_facts: false
   vars:
-    is_admin: false  # set to "true" to run CBS administrator-only modules.
-    cbs_tags:
-     - storage7-ceph-nautilus-candidate
-     - storage7-ceph-nautilus-testing
-     - storage7-ceph-nautilus-release
+    ceph_codename: nautilus
+    cbs_arches: x86_64 aarch64 ppc64le
+    cbs_candidate_tag: storage7-ceph-{{ ceph_codename }}-candidate
+    cbs_testing_tag: storage7-ceph-{{ ceph_codename }}-testing
+    cbs_release_tag: storage7-ceph-{{ ceph_codename }}-release
+    cbs_build_tag: storage7-ceph-{{ ceph_codename }}-el7-build
+    cbs_build_target: storage7-ceph-{{ ceph_codename }}-el7
+    build_inheritance:
+    - parent: buildsys7
+      priority: 5
+    - parent: "{{ cbs_candidate_tag }}"
+      priority: 10
+    - parent: storage7-ceph-common-candidate
+      priority: 15
+    - parent: storage7-common-candidate
+      priority: 20
+    # https://bugs.centos.org/view.php?id=15700
+    - parent: sclo7-devtoolset-7-rh-candidate
+      priority: 25
+    external_repos:
+    - repo: centos7-cr
+      priority: 5
+    - repo: centos7-extras
+      priority: 10
+    - repo: centos7-updates
+      priority: 15
+    - repo: centos7-os
+      priority: 20
     packages:
       ktdreyer:
-        - babeltrace
-        - ceph
-        - ceph-ansible
-        - jq
-        - leveldb
-        - libntirpc
-        - lttng-ust
-        - mock-ceph-config
-        - nfs-ganesha
-        - oniguruma
-        - python-logutils
-        - python-notario
-        - python-pecan
-        - python-prettytable
-        - python-simplegeneric
-        - python-singledispatch
-        - rook
-        - userspace-rcu
-        - xmlstarlet
-        - yasm
-
-  tasks:
-  - name: Configure CBS tag
-    koji_tag:
-      name: "{{ item }}"
-      perm: build-storage
-      packages: "{{ packages }}"
-    with_items: "{{ cbs_tags }}"
-
-  - name: Configure CBS build tag
-    koji_tag:
-      name: storage7-ceph-nautilus-el7-build
-      arches: x86_64 aarch64 ppc64le
-      inheritance:
-        - parent: buildsys7
-          priority: 5
-        - parent: storage7-ceph-nautilus-candidate
-          priority: 10
-        - parent: storage7-ceph-common-candidate
-          priority: 15
-        - parent: storage7-common-candidate
-          priority: 20
-        # https://bugs.centos.org/view.php?id=15700
-        - parent: sclo7-devtoolset-7-rh-candidate
-          priority: 25
-      external_repos:
-        - repo: centos7-cr
-          priority: 5
-        - repo: centos7-extras
-          priority: 10
-        - repo: centos7-updates
-          priority: 15
-        - repo: centos7-os
-          priority: 20
-    when: is_admin
-
-  - name: Configure CBS target
-    koji_target:
-      name: storage7-ceph-nautilus-el7
-      build_tag: storage7-ceph-nautilus-el7-build
-      dest_tag: storage7-ceph-nautilus-candidate
-    when: is_admin
+      - babeltrace
+      - ceph
+      - ceph-ansible
+      - jq
+      - leveldb
+      - libntirpc
+      - lttng-ust
+      - mock-ceph-config
+      - nfs-ganesha
+      - oniguruma
+      - python-logutils
+      - python-notario
+      - python-pecan
+      - python-prettytable
+      - python-simplegeneric
+      - python-singledispatch
+      - rook
+      - userspace-rcu
+      - xmlstarlet
+      - yasm
+  roles:
+  - cbs

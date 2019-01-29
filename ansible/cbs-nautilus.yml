@@ -1,4 +1,4 @@
-- name: Configure CBS for Ceph Nautilus
+- name: Configure CBS for Ceph nautilus
   hosts: localhost
   gather_facts: false
   vars:

@@ -1,0 +1,54 @@
+- name: Configure CBS for Ceph luminous
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ceph_codename: luminous
+    cbs_arches: x86_64 aarch64 ppc64le
+    cbs_candidate_tag: storage7-ceph-{{ ceph_codename }}-candidate
+    cbs_testing_tag: storage7-ceph-{{ ceph_codename }}-testing
+    cbs_release_tag: storage7-ceph-{{ ceph_codename }}-release
+    cbs_build_tag: storage7-ceph-{{ ceph_codename }}-el7-build
+    cbs_build_target: storage7-ceph-{{ ceph_codename }}-el7
+    build_inheritance:
+    - parent: buildsys7
+      priority: 5
+    - parent: "{{ cbs_candidate_tag }}"
+      priority: 10
+    - parent: storage7-ceph-common-candidate
+      priority: 15
+    - parent: storage7-common-candidate
+      priority: 20
+    external_repos:
+    - repo: centos7-cr
+      priority: 5
+    - repo: centos7-extras
+      priority: 10
+    - repo: centos7-updates
+      priority: 15
+    - repo: centos7-os
+      priority: 20
+    packages:
+      ktdreyer:
+      - babeltrace
+      - ceph
+      - ceph-ansible
+      - jq
+      - leveldb
+      - libntirpc
+      - lttng-ust
+      - mock-ceph-config
+      - nfs-ganesha
+      - oniguruma
+      - python-logutils
+      - python-notario
+      - python-pecan
+      - python-prettytable
+      - python-simplegeneric
+      - python-singledispatch
+      - radosgw-agent
+      - rook
+      - userspace-rcu
+      - xmlstarlet
+      - yasm
+  roles:
+  - cbs

@@ -129,6 +129,7 @@ def main():
     task_ids = set()
     for tag in next_tags:
         task_id = tag_build(tag, nvr, session)
+        print('- %s: task ID %d' % (tag, task_id))
         task_ids.add(task_id)
     watch_result = watch_tasks(session, task_ids, poll_interval=15)
     if watch_result != 0:

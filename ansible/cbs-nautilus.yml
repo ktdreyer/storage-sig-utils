@@ -49,6 +49,7 @@
       - python-simplegeneric
       - python-singledispatch
       - rook
+      - smartmontools
       - userspace-rcu
       - xmlstarlet
       - yasm

@@ -50,5 +50,32 @@
       - userspace-rcu
       - xmlstarlet
       - yasm
+    build_group_packages:
+    - bash
+    - buildsys-macros-el7
+    - buildsys-tools
+    - bzip2
+    - coreutils
+    - cpio
+    - curl
+    - diffutils
+    - findutils
+    - gawk
+    - gcc
+    - gcc-c++
+    - grep
+    - gzip
+    - info
+    - make
+    - patch
+    - redhat-release
+    - redhat-rpm-config
+    - rpm-build
+    - sed
+    - shadow-utils
+    - tar
+    - unzip
+    - util-linux-ng
+    - which
   roles:
   - cbs

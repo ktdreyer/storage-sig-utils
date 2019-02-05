@@ -42,10 +42,13 @@
       - mock-ceph-config
       - nfs-ganesha
       - oniguruma
+      - python-apipkg
+      - python-execnet
       - python-logutils
       - python-notario
       - python-pecan
       - python-prettytable
+      - python-remoto
       - python-simplegeneric
       - python-singledispatch
       - rook

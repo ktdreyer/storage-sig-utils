@@ -18,8 +18,7 @@
       priority: 15
     - parent: storage7-common-candidate
       priority: 20
-    # https://bugs.centos.org/view.php?id=15700
-    - parent: sclo7-devtoolset-7-rh-candidate
+    - parent: sclo7-devtoolset-7-rh-release
       priority: 25
     external_repos:
     - repo: centos7-cr

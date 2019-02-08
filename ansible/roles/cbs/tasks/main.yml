@@ -12,7 +12,7 @@
 - name: Configure CBS build tag
   koji_tag:
     name: "{{ cbs_build_tag }}"
-    arches: x86_64 aarch64 ppc64le
+    arches: "{{ cbs_arches }}"
     inheritance: "{{ build_inheritance }}"
     external_repos: "{{ external_repos }}"
     groups:

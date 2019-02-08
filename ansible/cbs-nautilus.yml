@@ -32,6 +32,7 @@
       priority: 20
     packages:
       ktdreyer:
+      - ansible
       - babeltrace
       - ceph
       - ceph-ansible

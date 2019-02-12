@@ -31,16 +31,19 @@
       priority: 20
     packages:
       ktdreyer:
+      - CUnit
       - ansible
       - babeltrace
       - ceph
       - ceph-ansible
+      - cmake3
       - jq
       - leveldb
       - libntirpc
       - lttng-ust
       - mock-ceph-config
       - nfs-ganesha
+      - oath-toolkit
       - oniguruma
       - python-apipkg
       - python-execnet

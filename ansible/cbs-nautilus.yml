@@ -38,6 +38,7 @@
       - ceph-ansible
       - cmake3
       - jq
+      - jsoncpp
       - leveldb
       - libntirpc
       - lttng-ust

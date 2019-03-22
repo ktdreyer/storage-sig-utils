@@ -47,6 +47,7 @@
       - oath-toolkit
       - oniguruma
       - python-apipkg
+      - python-eventlet
       - python-execnet
       - python-funcsigs
       - python-logutils

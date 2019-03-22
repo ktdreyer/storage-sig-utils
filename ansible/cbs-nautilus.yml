@@ -48,8 +48,11 @@
       - oniguruma
       - python-apipkg
       - python-execnet
+      - python-funcsigs
       - python-logutils
+      - python-mock
       - python-notario
+      - python-pbr
       - python-pecan
       - python-prettytable
       - python-remoto

@@ -2,4 +2,4 @@
 
 set -eu
 
-KOJI_PROFILE=cbs ansible-playbook -v cbs-nautilus.yml
+KOJI_PROFILE=cbs ansible-playbook --check -v cbs-nautilus.yml
